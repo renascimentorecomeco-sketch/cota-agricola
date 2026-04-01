@@ -1,8 +1,8 @@
 {
   "crons": [
     {
-      "path": "/api/noticias?secret=${CRON_SECRET}",
-      "schedule": "*/30 * * * *"
+      "path": "/api/noticias?secret=Armagedon12356",
+      "schedule": "0 6 * * *"
     }
   ]
 }
