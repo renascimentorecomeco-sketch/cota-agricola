@@ -8,10 +8,34 @@ const supabaseAdmin = createClient(
 
 const RSS_FEEDS = [
   { url: "https://www.canalrural.com.br/feed/", nome: "Canal Rural" },
-  { url: "https://www.agrolink.com.br/feed/", nome: "Agrolink" },
   { url: "https://www.portaldoagronegocio.com.br/feed/", nome: "Portal do Agronegócio" },
-  { url: "https://www.brasilagro.com.br/feed/", nome: "Brasil Agro" },
+  { url: "https://gazetadopovo.com.br/feed/agronegocio/", nome: "Gazeta do Povo Agro" },
+  { url: "https://afnews.com.br/feed/", nome: "AF News" },
 ]
+
+function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/<!\[CDATA\[/g, "")
+    .replace(/\]\]>/g, "")
+    .replace(/<[^>]+>/g, "")
+    // Entidades nomeadas
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&mdash;/g, "—")
+    .replace(/&ndash;/g, "–")
+    .replace(/&laquo;/g, "«")
+    .replace(/&raquo;/g, "»")
+    .replace(/&hellip;/g, "...")
+    // Entidades numéricas (&#8216; &#8217; &#8220; &#8221; etc.)
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
+    .trim()
+}
 
 function parseRSS(xml: string): string[] {
   const titles: string[] = []
@@ -22,17 +46,7 @@ function parseRSS(xml: string): string[] {
     const itemContent = itemMatch[1]
     const titleMatch = itemContent.match(/<title(?:\s[^>]*)?>([\s\S]*?)<\/title>/)
     if (titleMatch) {
-      let title = titleMatch[1]
-        .replace(/<!\[CDATA\[/g, "")
-        .replace(/\]\]>/g, "")
-        .replace(/<[^>]+>/g, "")
-        .replace(/&amp;/g, "&")
-        .replace(/&lt;/g, "<")
-        .replace(/&gt;/g, ">")
-        .replace(/&quot;/g, '"')
-        .replace(/&#039;/g, "'")
-        .replace(/&apos;/g, "'")
-        .trim()
+      const title = decodeHtmlEntities(titleMatch[1])
 
       if (title.length > 20 && title.length < 200) {
         titles.push(title)
