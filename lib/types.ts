@@ -47,6 +47,7 @@ export interface CotacaoRow {
   variacao: number
   produtor_id: string | null
   produtor_nome: string
+  produtor_logo: string | null
   unidade: string
   icone: string
   ordem: number
@@ -58,6 +59,7 @@ export interface ProdutorRow {
   id: string
   nome: string
   codigo: string
+  logo_url: string | null
   ativo: boolean
   created_at: string
 }
@@ -81,6 +83,7 @@ export interface Cotacao {
   variacao: number
   produtorId: string | null
   produtorNome: string
+  produtorLogo: string | null
   unidade: string
   icone: string
   ordem: number
@@ -90,6 +93,7 @@ export interface Cotacao {
 export interface Produtor {
   id: string
   nome: string
+  logoUrl: string | null
 }
 
 export interface Noticia {
@@ -110,6 +114,7 @@ export function mapCotacao(row: CotacaoRow): Cotacao {
     variacao: Number(row.variacao),
     produtorId: row.produtor_id,
     produtorNome: row.produtor_nome,
+    produtorLogo: row.produtor_logo || null,
     unidade: row.unidade,
     icone: row.icone,
     ordem: row.ordem,

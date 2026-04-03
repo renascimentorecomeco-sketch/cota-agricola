@@ -168,14 +168,23 @@ export function PriceCardLandscape({
         </div>
       </div>
 
-      {/* Produtor + Hora */}
-      <div className="hidden min-w-0 flex-1 flex-col items-end text-right sm:flex">
-        <p className="truncate text-sm font-medium text-white/70 lg:text-base">
-          {cotacao.produtorNome}
-        </p>
-        <p className="text-xs text-white/40 lg:text-sm">
-          {formatTime(cotacao.ultimaAtualizacao)}
-        </p>
+      {/* Produtor + Logo + Hora */}
+      <div className="hidden min-w-0 flex-1 items-center justify-end gap-3 text-right sm:flex">
+        <div>
+          <p className="truncate text-sm font-medium text-white/70 lg:text-base">
+            {cotacao.produtorNome}
+          </p>
+          <p className="text-xs text-white/40 lg:text-sm">
+            {formatTime(cotacao.ultimaAtualizacao)}
+          </p>
+        </div>
+        {cotacao.produtorLogo && (
+          <img
+            src={cotacao.produtorLogo}
+            alt=""
+            className="h-10 w-10 shrink-0 rounded-lg border border-white/10 object-cover lg:h-12 lg:w-12"
+          />
+        )}
       </div>
     </div>
   )
