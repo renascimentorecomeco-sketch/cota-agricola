@@ -101,7 +101,7 @@ export function PriceCardLandscape({
   return (
     <div
       className={cn(
-        "relative flex items-center overflow-hidden rounded-2xl border bg-black/50 px-6 py-5 backdrop-blur-xl transition-all duration-500",
+        "relative flex items-center gap-3 overflow-hidden rounded-2xl border bg-black/50 px-4 py-4 backdrop-blur-xl transition-all duration-500 sm:gap-4 sm:px-6 sm:py-5",
         getBorderColor(),
         getGlowColor(),
         "shadow-xl",
@@ -109,10 +109,10 @@ export function PriceCardLandscape({
       )}
     >
       {/* Ícone + Nome do Produto */}
-      <div className="flex min-w-0 flex-[2] items-center gap-4">
+      <div className="flex min-w-0 flex-[2] items-center gap-3 sm:gap-4">
         <div
           className={cn(
-            "flex h-14 w-14 shrink-0 items-center justify-center rounded-xl",
+            "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg sm:h-14 sm:w-14 sm:rounded-xl",
             isPositive && "bg-emerald-500/20",
             isNegative && "bg-red-500/20",
             isNeutral && "bg-white/10"
@@ -120,7 +120,7 @@ export function PriceCardLandscape({
         >
           <IconComponent
             className={cn(
-              "h-7 w-7",
+              "h-5 w-5 sm:h-7 sm:w-7",
               isPositive && "text-emerald-400",
               isNegative && "text-red-400",
               isNeutral && "text-white/70"
@@ -128,20 +128,20 @@ export function PriceCardLandscape({
           />
         </div>
         <div className="min-w-0">
-          <h3 className="truncate text-xl font-bold tracking-tight text-white">
+          <h3 className="truncate text-base font-bold tracking-tight text-white sm:text-xl">
             {cotacao.produto}
           </h3>
-          <p className="text-sm font-medium uppercase tracking-wider text-white/40">
+          <p className="text-xs font-medium uppercase tracking-wider text-white/40 sm:text-sm">
             {cotacao.unidade}
           </p>
         </div>
       </div>
 
       {/* Preço */}
-      <div className="flex shrink-0 flex-col items-end px-4">
+      <div className="flex shrink-0 flex-col items-end px-1 sm:px-4">
         <p
           className={cn(
-            "text-4xl font-bold tabular-nums tracking-tight",
+            "text-2xl font-bold tabular-nums tracking-tight sm:text-4xl",
             isPositive && "text-emerald-400",
             isNegative && "text-red-400",
             isNeutral && "text-white"
@@ -152,28 +152,28 @@ export function PriceCardLandscape({
       </div>
 
       {/* Variação */}
-      <div className="flex shrink-0 flex-col items-center px-3">
+      <div className="flex shrink-0 flex-col items-center px-1 sm:px-3">
         <div
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-base font-bold",
+            "inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-bold sm:gap-1.5 sm:px-4 sm:py-1.5 sm:text-base",
             isPositive && "bg-emerald-500/20 text-emerald-400",
             isNegative && "bg-red-500/20 text-red-400",
             isNeutral && "bg-white/10 text-white/50"
           )}
         >
-          {isPositive && <TrendingUp className="h-5 w-5" />}
-          {isNegative && <TrendingDown className="h-5 w-5" />}
-          {isNeutral && <Minus className="h-5 w-5" />}
+          {isPositive && <TrendingUp className="h-3.5 w-3.5 sm:h-5 sm:w-5" />}
+          {isNegative && <TrendingDown className="h-3.5 w-3.5 sm:h-5 sm:w-5" />}
+          {isNeutral && <Minus className="h-3.5 w-3.5 sm:h-5 sm:w-5" />}
           <span>{formatVariacao(cotacao.variacao)}</span>
         </div>
       </div>
 
       {/* Produtor + Hora */}
       <div className="hidden min-w-0 flex-1 flex-col items-end text-right sm:flex">
-        <p className="truncate text-base font-medium text-white/70">
+        <p className="truncate text-sm font-medium text-white/70 lg:text-base">
           {cotacao.produtorNome}
         </p>
-        <p className="text-sm text-white/40">
+        <p className="text-xs text-white/40 lg:text-sm">
           {formatTime(cotacao.ultimaAtualizacao)}
         </p>
       </div>

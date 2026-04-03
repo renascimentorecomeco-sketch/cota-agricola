@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import { PriceCardLandscape } from "@/components/price-card-landscape"
 import { NewsTicker } from "@/components/news-ticker"
-import { Leaf } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { supabase } from "@/lib/supabase"
 import type { Cotacao, Noticia, CotacaoRow } from "@/lib/types"
@@ -168,7 +167,7 @@ export default function TVDashboard() {
     return (
       <div className="flex h-screen items-center justify-center bg-black">
         <div className="text-center">
-          <Leaf className="mx-auto mb-4 h-12 w-12 animate-pulse text-emerald-500" />
+          <img src="/images/infinity-logo.png" alt="Infinity" className="mx-auto mb-4 h-12 w-auto animate-pulse" />
           <p className="text-lg text-white/60">Carregando cotações...</p>
         </div>
       </div>
@@ -188,20 +187,17 @@ export default function TVDashboard() {
       <div className="relative z-10 flex h-full flex-col">
         {/* Header — compacto pro retrato */}
         <header className="flex shrink-0 items-center justify-between border-b border-white/10 bg-black/40 px-6 py-3 backdrop-blur-xl">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500 shadow-lg shadow-emerald-500/30">
-              <Leaf className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight text-white">
-                CotaAgrícola
-              </h1>
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-                <span className="text-xs font-semibold text-emerald-400/80">
-                  AO VIVO
-                </span>
-              </div>
+          <div className="flex items-center gap-4">
+            <img
+              src="/images/infinity-logo.png"
+              alt="Infinity Mídia Digital"
+              className="h-10 w-auto"
+            />
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-emerald-400/80">
+                Cotações ao vivo
+              </span>
             </div>
           </div>
           <div className="text-right">
@@ -215,7 +211,7 @@ export default function TVDashboard() {
         </header>
 
         {/* Cards — 6 por página em retrato */}
-        <main className="flex flex-1 flex-col overflow-hidden px-5 py-4">
+        <main className="flex flex-1 flex-col overflow-hidden px-3 py-3 sm:px-5 sm:py-4">
           <div ref={containerRef} className="relative flex-1 overflow-hidden">
             <div
               className={cn(

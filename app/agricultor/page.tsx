@@ -47,6 +47,20 @@ function formatCurrency(value: number) {
   }).format(value)
 }
 
+function formatDateTime(isoString: string): string {
+  try {
+    const date = new Date(isoString)
+    return date.toLocaleString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  } catch {
+    return ""
+  }
+}
+
 // ==============================
 // TELA DE LOGIN
 // ==============================
@@ -105,9 +119,11 @@ function LoginScreen({
     <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
       <div className="w-full max-w-sm space-y-6">
         <div className="flex flex-col items-center gap-3">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary shadow-lg">
-            <Leaf className="h-9 w-9 text-primary-foreground" />
-          </div>
+          <img
+            src="/images/infinity-logo.png"
+            alt="Infinity Mídia Digital"
+            className="h-12 w-auto brightness-0 invert"
+          />
           <div className="text-center">
             <h1 className="text-2xl font-bold tracking-tight text-foreground">
               CotaAgrícola
@@ -350,11 +366,14 @@ export default function AgricultorPage() {
       <header className="sticky top-0 z-10 border-b border-border/50 bg-card/95 px-4 py-4 backdrop-blur-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-              <Leaf className="h-5 w-5 text-primary-foreground" />
-            </div>
+            <img
+              src="/images/infinity-logo.png"
+              alt="Infinity"
+              className="h-8 w-auto brightness-0 invert"
+            />
+            <div className="h-6 w-px bg-border" />
             <div>
-              <h1 className="text-lg font-bold tracking-tight text-foreground">
+              <h1 className="text-sm font-bold tracking-tight text-foreground">
                 CotaAgrícola
               </h1>
               <p className="text-xs text-muted-foreground">{produtor.nome}</p>
@@ -382,7 +401,7 @@ export default function AgricultorPage() {
 
         {isLoadingData ? (
           <div className="flex items-center justify-center py-12">
-            <Leaf className="h-8 w-8 animate-pulse text-primary" />
+            <img src="/images/infinity-logo.png" alt="Loading" className="h-8 w-auto animate-pulse brightness-0 invert" />
           </div>
         ) : (
           <div className="space-y-3">
@@ -409,6 +428,11 @@ export default function AgricultorPage() {
                         <p className="text-sm text-muted-foreground">
                           {cotacao.unidade}
                         </p>
+                        {cotacao.ultimaAtualizacao && (
+                          <p className="mt-0.5 text-xs text-muted-foreground/60">
+                            Atualizado: {formatDateTime(cotacao.ultimaAtualizacao)}
+                          </p>
+                        )}
                       </div>
                     </div>
                     <div className="text-right">
